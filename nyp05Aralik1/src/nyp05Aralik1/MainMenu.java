@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
 import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Font;
@@ -17,6 +19,8 @@ import javax.swing.UIManager;
 import java.awt.FlowLayout;
 import java.awt.Dimension;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Color;
 import java.awt.Component;
 
@@ -90,7 +94,7 @@ public class MainMenu {
 		});
 		
 		a = new Color (0 , 0 , 0) ; // beyaz
-		b = new Color (255 , 255 ,255) ; // Siyah
+		b = new Color (255 , 255 , 255) ; // Siyah
 		
 		
 		lblAdmin = new JLabel("Admin ");
@@ -155,6 +159,35 @@ public class MainMenu {
 		frame.setForeground(SystemColor.inactiveCaptionText);
 		frame.setBounds(100, 100, 479, 318);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		girisButton.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        String ID = textField.getText();
+		        String pass = new String(passwordField.getPassword());
+		        textField.setText("");
+		        passwordField.setText(""); 
+		        
+
+		        if (ID.equals("admin") && pass.equals("1234") && girisModu == 0) {
+		            
+		            // 2. ADMIN PENCERESİNİ BAŞLATMA
+		            AdminFrame adminEkranı = new AdminFrame();
+		            adminEkranı.setVisible(true);
+		            
+		            // 3. LOGİN PENCERESİNİ KAPATMA
+		           frame.dispose();
+		            
+		        } else if (ID.equals("yolcu") && pass.equals("abc") && girisModu  == 1) {
+		            
+		     
+		            PassangerFrame yolcuEkranı = new PassangerFrame();
+		            yolcuEkranı.setVisible(true);
+		            frame.dispose();
+		            
+		        } else {
+		            JOptionPane.showMessageDialog(null, "Hatalı Giriş!");
+		        }
+		    }
+		});
 	}
 	public void makeDarkLogin() {
 	    panelLogin.setBackground(b);
